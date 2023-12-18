@@ -6,7 +6,7 @@ import AddTransaction from '~/components/AddTransaction.vue';
 
 <template>
   <div class="font-lato text-xl p-10">
-    <h2 class="text-2xl font-bold">記帳</h2>
+    <h2 class="text-2xl font-bold">Expense Tracker</h2>
     <div class="w-[400px] my-[30px] mx-auto">
       <Balance />
       <History />

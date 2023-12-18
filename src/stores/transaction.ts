@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 interface Transaction {
   id: number;
@@ -10,6 +10,28 @@ interface Transaction {
 
 export const useTransactionStore = defineStore('transaction', () => {
   const transactions = ref<Transaction[]>([]);
+
+  const totalAmount = computed(() => {
+    return transactions.value.reduce((total, transaction) => total + transaction.amount, 0);
+  });
+
+  const totalIncome = computed(() => {
+    return transactions.value.reduce((total, transaction) => {
+      if (transaction.type === 'income') {
+        return total + transaction.amount;
+      }
+      return total;
+    }, 0);
+  });
+
+  const totalExpense = computed(() => {
+    return transactions.value.reduce((total, transaction) => {
+      if (transaction.type === 'expense') {
+        return total + transaction.amount;
+      }
+      return total;
+    }, 0);
+  });
 
   const addTransaction = (title: string, amount: number) => {
     const id = new Date().getTime();
@@ -31,6 +53,9 @@ export const useTransactionStore = defineStore('transaction', () => {
 
   return {
     transactions,
+    totalAmount,
+    totalIncome,
+    totalExpense,
     addTransaction,
     removeTransaction,
   };

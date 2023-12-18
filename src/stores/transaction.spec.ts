@@ -63,4 +63,40 @@ describe('Transaction Store', () => {
       expect(store.transactions.length).toBe(1);
     });
   });
+
+  describe('total amount', () => {
+    it('should calculate the total amount', () => {
+      const store = useTransactionStore();
+      const { addTransaction } = store;
+
+      addTransaction('salary', 1000);
+      addTransaction('rent', -500);
+
+      expect(store.totalAmount).toBe(500);
+    });
+  });
+
+  describe('total income', () => {
+    it('should calculate the total income', () => {
+      const store = useTransactionStore();
+      const { addTransaction } = store;
+
+      addTransaction('salary', 1000);
+      addTransaction('rent', -500);
+
+      expect(store.totalIncome).toBe(1000);
+    });
+  });
+
+  describe('total expense', () => {
+    it('should calculate the total expense', () => {
+      const store = useTransactionStore();
+      const { addTransaction } = store;
+
+      addTransaction('salary', 1000);
+      addTransaction('rent', -500);
+
+      expect(store.totalExpense).toBe(-500);
+    });
+  });
 });
