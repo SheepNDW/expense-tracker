@@ -6,7 +6,7 @@ const store = useTransactionStore();
 
 <template>
   <div>
-    <h3 class="border-b border-[#bbb] pb-10px mt-40px mb-10px mx-0">歷史記錄 History</h3>
+    <h3 class="border-b border-[#bbb] pb-10px mt-40px mb-10px mx-0 font-bold">History</h3>
     <ul class="list">
       <li
         v-for="transaction in store.transactions"
@@ -19,7 +19,7 @@ const store = useTransactionStore();
       >
         {{ transaction.title }}
         <span>${{ transaction.amount }}</span>
-        <button class="delete-btn">x</button>
+        <button class="delete-btn" @click="store.removeTransaction(transaction.id)">x</button>
       </li>
     </ul>
   </div>

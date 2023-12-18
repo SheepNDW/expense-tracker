@@ -9,23 +9,30 @@ interface Transaction {
 }
 
 export const useTransactionStore = defineStore('transaction', () => {
-  const transactions = ref<Transaction[]>([
-    {
-      id: 1,
-      title: 'salary',
-      amount: 1000,
-      type: 'income',
-    },
-    {
-      id: 2,
-      title: 'Gas',
-      amount: -30.5,
-      type: 'expense',
-    },
-  ]);
+  const transactions = ref<Transaction[]>([]);
+
+  const addTransaction = (title: string, amount: number) => {
+    const id = new Date().getTime();
+    const transaction: Transaction = {
+      id,
+      title,
+      amount,
+      type: amount > 0 ? 'income' : 'expense',
+    };
+    transactions.value.push(transaction);
+  };
+
+  const removeTransaction = (id: number) => {
+    const index = transactions.value.findIndex((transaction) => transaction.id === id);
+    if (index !== -1) {
+      transactions.value.splice(index, 1);
+    }
+  };
 
   return {
     transactions,
+    addTransaction,
+    removeTransaction,
   };
 });
 
